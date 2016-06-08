@@ -10,10 +10,14 @@ public class Runner {
 //				mw.setVisible(true);
 				
 				AskerWindow asw = new AskerWindow();
-				asw.setVisible(true);
 				
 				AnswererWindow anw = new AnswererWindow();
+				
+				anw.setMyAskerWindow(asw);
+				asw.setMyAnswererWindow(anw);
+				
 				anw.setVisible(true);
+				asw.setVisible(true);
 			}
 		});
 	}

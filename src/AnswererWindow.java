@@ -7,13 +7,18 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Dimension;
 
 public class AnswererWindow extends JFrame{
 
 	private AskerWindow myAsker = null;
+	private JTextField displayQuestion;
 
 	public AnswererWindow(){
 		initUI();
@@ -23,7 +28,7 @@ public class AnswererWindow extends JFrame{
 		myAsker = aw;
 	}
 
-	private String IMG_PATH = "resources/moon2.jpg";
+	private String IMG_PATH = "src/resources/moon2.jpg";
 
 	// public void ask(String ask) {
 	//
@@ -43,7 +48,7 @@ public class AnswererWindow extends JFrame{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		JTextField displayQuestion = new JTextField();
+		displayQuestion = new JTextField();
 		displayQuestion.setText("Hello");
 		displayQuestion.setEditable(false);
 		displayQuestion.setSize(new Dimension(5, 10));
@@ -55,10 +60,30 @@ public class AnswererWindow extends JFrame{
 		//wywolac metode answear String
 		//metoda ask u siebie (Ma wyswietlic pytanie)
 		JButton yesButton = new JButton("YES");
+		yesButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				myAsker.answer("YES");
+			}
+		});
 		answererPanel.add(yesButton);
 		JButton noButton = new JButton("NO");
+		noButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				myAsker.answer("NO");
+			}
+		});
 		answererPanel.add(noButton);
 
 		pack();
+	}
+
+	public void ask(String question) {
+		displayQuestion.setText(question);
+	}
+
+	public void guess(String img) {
+		JOptionPane.showMessageDialog(this, img);
 	}
 }
